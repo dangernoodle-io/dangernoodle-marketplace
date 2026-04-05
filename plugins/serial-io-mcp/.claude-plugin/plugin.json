@@ -1,0 +1,19 @@
+{
+  "name": "serial-io-mcp",
+  "version": "1.0.0",
+  "description": "MCP server for serial port monitoring and control",
+  "author": {
+    "name": "dangernoodle-io",
+    "url": "https://github.com/dangernoodle-io"
+  },
+  "homepage": "https://github.com/dangernoodle-io/serial-io-mcp",
+  "repository": "https://github.com/dangernoodle-io/dangernoodle-marketplace",
+  "license": "MIT",
+  "keywords": ["serial", "mcp", "hardware", "firmware", "embedded", "uart"],
+  "hooks": "./hooks/hooks.json",
+  "mcpServers": {
+    "serial-io-mcp": {
+      "command": "${CLAUDE_PLUGIN_DATA}/bin/serial-io-mcp"
+    }
+  }
+}
