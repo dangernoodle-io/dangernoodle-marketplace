@@ -10,7 +10,6 @@
   "repository": "https://github.com/dangernoodle-io/dangernoodle-marketplace",
   "license": "MIT",
   "keywords": ["serial", "mcp", "hardware", "firmware", "embedded", "uart"],
-  "hooks": "./hooks/hooks.json",
   "mcpServers": {
     "serial-io-mcp": {
       "command": "${CLAUDE_PLUGIN_DATA}/bin/serial-io-mcp"
