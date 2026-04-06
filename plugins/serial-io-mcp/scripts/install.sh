@@ -3,7 +3,6 @@ set -euo pipefail
 
 BINARY_DIR="${CLAUDE_PLUGIN_DATA}/bin"
 BINARY="${BINARY_DIR}/serial-io-mcp"
-VERSION_FILE="${CLAUDE_PLUGIN_DATA}/.version"
 REPO="dangernoodle-io/serial-io-mcp"
 
 # Detect OS.
@@ -48,10 +47,10 @@ fi
 # Strip leading v for archive naming.
 LATEST_VERSION="${LATEST_TAG#v}"
 
-# Check installed version.
+# Check installed version via binary --version output.
 INSTALLED_VERSION=""
-if [ -f "$VERSION_FILE" ]; then
-  INSTALLED_VERSION="$(cat "$VERSION_FILE")"
+if [ -x "$BINARY" ]; then
+  INSTALLED_VERSION="$("$BINARY" --version 2>/dev/null | tr -d '[:space:]')"
 fi
 
 # Skip if up to date.
@@ -86,6 +85,5 @@ fi
 
 # Install binary.
 install -m 755 "${WORK_DIR}/extracted/serial-io-mcp" "$BINARY"
-printf '%s' "$LATEST_VERSION" > "$VERSION_FILE"
 
 echo "serial-io-mcp: installed ${LATEST_VERSION}"
