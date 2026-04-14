@@ -23,18 +23,15 @@ Look for these types of items:
 - **Relations** (type: `relation`): dependencies between components, projects, or systems
 - **Plans** (type: `plan`): implementation plans discussed and deferred — capture terse step list in content; narrative context in notes
 
-### 3. Deduplication
-For each candidate item:
-1. Call the `search` MCP tool with the proposed title
-2. If a result comes back with a matching project and similar title, mark it as "already stored" and skip it
-3. Otherwise, proceed to store it
+### 3. Search for existing entries
+For each candidate: call the `search` MCP tool with the proposed title. If a matching entry exists for the same project, reuse its title verbatim when calling `put` — the server upserts by `type+project+category+title`, so it will update rather than duplicate. Only skip if the existing entry's content is already identical to what you would write.
 
 ### 4. Store New Items
 For each new item, call the `put` MCP tool with:
 - `type`: the document type (`decision`, `fact`, `note`, or `relation`)
 - `project`: the project name from step 1
 - `title`: a concise, descriptive title (used as a unique key)
-- `content`: terse, ≤300 chars, structured (Rule/Fact + optional Trigger:/Effect:/Why: lines) — agents read this on every injection
+- `content`: terse, ≤300 chars target / 500 hard cap, structured (Rule/Fact + optional Trigger:/Effect:/Why: lines) — agents read this on every injection
 - `notes`: optional narrative for humans — rationale, trade-offs, context. Unlimited length, only shown when user asks 'why'
 - `category`: optional categorization (e.g., "config" for facts, procedure type for notes)
 - `tags`: relevant tags as an array
@@ -55,6 +52,21 @@ List what was stored and what was skipped, one line per item. Format:
 
 Be concise and use the report to confirm what was persisted.
 
+## Example
+
+A user says: "we decided to use tiktoken for token counting because it matches what the API uses."
+
+Call `put` with:
+- `type`: `decision`
+- `project`: (from git)
+- `title`: `Use tiktoken for token counting`
+- `content`:
+  ```
+  Rule: Use tiktoken-go cl100k_base for all token measurements.
+  Why: matches Anthropic API tokenization; avoids drift between measured and billed tokens.
+  ```
+- `notes`: `Considered naive word-count and rough char/4 estimates. Neither matches API billing. tiktoken-go is pure-Go, no CGO, already a test dep.`
+
 ## Guidelines
 
 **Be selective.** Only persist knowledge that would be valuable in future conversations. Skip:
@@ -65,7 +77,7 @@ Be concise and use the report to confirm what was persisted.
 
 **Prefer updating.** If an item already exists with slightly different content, call `put` again with the same title—the system will update it rather than create a duplicate.
 
-**Split terse from narrative.** Put the rule/fact/step in `content` (agents read this on every injection). Put the rationale, trade-offs, and context in `notes` (humans read this when they explicitly ask 'why'). Content target ≤300 chars, 500 hard cap.
+**Split terse from narrative.** Put the rule/fact/step in `content` (agents read this on every injection). Put the rationale, trade-offs, and context in `notes` (humans read this when they explicitly ask 'why').
 
 **Structured format for content.** Use this skeleton:
 

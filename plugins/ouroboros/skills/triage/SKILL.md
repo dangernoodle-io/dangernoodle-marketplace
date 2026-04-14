@@ -1,6 +1,8 @@
 ---
 name: triage
 description: Review and manage backlog items — reprioritize, update status, clean up stale items
+context: fork
+model: haiku
 ---
 
 # Triage Backlog
@@ -19,6 +21,7 @@ Run `git rev-parse --show-toplevel | xargs basename` to identify the project. If
 
 ### 3. Present Summary
 Display open items grouped by priority (P0 first), with a count per priority level. Show active plans separately.
+Priority scale: P0 (critical/blocking) through P6 (someday/maybe).
 
 ### 4. Interactive Triage
 If the user provided args (e.g., `/triage reprioritize`), act on them. Otherwise, suggest actions:
@@ -26,6 +29,8 @@ If the user provided args (e.g., `/triage reprioritize`), act on them. Otherwise
 - Items that could be consolidated
 - Priority adjustments based on context
 - Items that appear done based on recent commits
+
+Before suggesting items that "appear done", run `git log --oneline -20` and cross-reference commit subjects against open item titles. Items whose titles reference something clearly landed should be suggested for closure.
 
 ### 5. Apply Changes
 For each agreed change, call the `item` MCP tool with `id` + updated fields. Report what was changed.
@@ -35,4 +40,3 @@ For each agreed change, call the `item` MCP tool with `id` + updated fields. Rep
 - Always show current state before suggesting changes
 - Never close or reprioritize items without user confirmation
 - Group related items when suggesting consolidation
-- Check git log for recent commits that may relate to open items
