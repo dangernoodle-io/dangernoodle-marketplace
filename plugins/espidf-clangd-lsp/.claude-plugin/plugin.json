@@ -1,0 +1,37 @@
+{
+  "name": "espidf-clangd-lsp",
+  "version": "0.1.0",
+  "description": "clangd LSP preconfigured for ESP-IDF (ESP32 xtensa + riscv32) C/C++ development",
+  "author": {
+    "name": "dangernoodle-io",
+    "url": "https://github.com/dangernoodle-io"
+  },
+  "homepage": "https://github.com/dangernoodle-io/dangernoodle-marketplace",
+  "repository": "https://github.com/dangernoodle-io/dangernoodle-marketplace",
+  "license": "MIT",
+  "keywords": ["esp-idf", "esp32", "clangd", "lsp", "c", "cpp", "embedded"],
+  "lspServers": {
+    "clangd": {
+      "command": "${CLAUDE_PLUGIN_DATA}/bin/clangd",
+      "args": [
+        "--background-index",
+        "--clang-tidy=false",
+        "--header-insertion=never",
+        "--query-driver=**/bin/xtensa-*-elf-gcc,**/bin/xtensa-*-elf-g++,**/bin/riscv32-*-elf-gcc,**/bin/riscv32-*-elf-g++,**/bin/arm-none-eabi-gcc,**/bin/arm-none-eabi-g++"
+      ],
+      "transport": "stdio",
+      "extensionToLanguage": {
+        ".c": "c",
+        ".h": "c",
+        ".cpp": "cpp",
+        ".cc": "cpp",
+        ".cxx": "cpp",
+        ".hpp": "cpp",
+        ".hh": "cpp",
+        ".hxx": "cpp"
+      },
+      "startupTimeout": 30000,
+      "maxRestarts": 3
+    }
+  }
+}

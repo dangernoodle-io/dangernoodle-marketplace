@@ -1,0 +1,20 @@
+{
+  "hooks": {
+    "SessionStart": [{
+      "matcher": "",
+      "hooks": [{
+        "type": "command",
+        "command": "bash ${CLAUDE_PLUGIN_ROOT}/scripts/install.sh",
+        "timeout": 5
+      }]
+    }],
+    "Stop": [{
+      "matcher": "",
+      "hooks": [{
+        "type": "command",
+        "command": "bash ${CLAUDE_PLUGIN_ROOT}/scripts/compile-db-refresh.sh",
+        "timeout": 3
+      }]
+    }]
+  }
+}

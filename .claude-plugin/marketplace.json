@@ -19,6 +19,12 @@
       "description": "Project knowledge base and backlog management. Persist decisions, facts, and notes across conversations. Track work items, plans, and project configuration.",
       "source": "./plugins/ouroboros-mcp",
       "homepage": "https://github.com/dangernoodle-io/ouroboros"
+    },
+    {
+      "name": "espidf-clangd-lsp",
+      "description": "clangd LSP preconfigured for ESP-IDF (ESP32 xtensa + riscv32) C/C++ development. Zero-config toolchain trust via --query-driver globs.",
+      "source": "./plugins/espidf-clangd-lsp",
+      "homepage": "https://github.com/dangernoodle-io/dangernoodle-marketplace"
     }
   ]
 }
