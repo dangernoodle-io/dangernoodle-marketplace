@@ -5,43 +5,25 @@ context: fork
 model: haiku
 ---
 
-# Recall Project Context
+1. **Project.** `git rev-parse --show-toplevel | xargs basename`.
 
-Query ouroboros for relevant context across KB entries, backlog items, and plans.
+2. **Query.** Use args as the search query (e.g. `/recall auth middleware`). If no args, do a broad project dump.
 
-## Process
+3. **Query all three sources:**
+   - KB: `search` with query + project filter; if no query, `get` with project filter for summaries
+   - Backlog: `item` with project filter (add `status: "open"` for broad queries)
+   - Plans: `plan` with project filter
 
-### 1. Determine Project Name
-Run `git rev-parse --show-toplevel | xargs basename` to identify the project.
+4. **Present** grouped by source:
+   - **Knowledge Base** — decisions, facts, notes, relations (summaries only)
+   - **Open Items** — backlog grouped by priority
+   - **Plans** — active + draft with status
 
-### 2. Determine Query
-If args provided (e.g., `/recall auth middleware`), use them as the search query. If no args, do a broad project dump.
-
-### 3. Query All Sources
-
-**KB entries:**
-- If query provided: call `search` MCP tool with the query and project filter
-- If no query: call `get` MCP tool with project filter to list all summaries
-
-**Backlog items:**
-- Call `item` MCP tool with project filter (and `status: "open"` for broad queries)
-
-**Plans:**
-- Call `plan` MCP tool with project filter
-
-### 4. Present Results
-Organize results by source:
-
-**Knowledge Base** — decisions, facts, notes, relations (show summaries, not full content)
-**Open Items** — backlog items grouped by priority
-**Plans** — active and draft plans with status
-
-For targeted queries, highlight the most relevant matches. For broad queries, keep it concise — summaries only, fetch full content only if the user asks.
+   Targeted queries: highlight best matches. Broad queries: summaries only; fetch full content only on request.
 
 ## Guidelines
 
-- Prefer summaries over full content to conserve tokens
-- Only fetch full KB entry content (`get` with `id`) if the user asks for details
-- Cross-reference: if a KB decision relates to an open item, mention the connection
-- If no results found, say so clearly rather than speculating
-- For deep investigation (code cross-reference, staleness checks, "why did we do X"), prefer spawning the `knowledge-explorer` subagent instead. This skill is optimized for quick inline lookups.
+- Prefer summaries; only `get` with `id` if the user asks for details
+- Cross-reference KB decisions to related open items when relevant
+- If no results, say so — don't speculate
+- For deep investigation ("why did we do X", code cross-reference, staleness checks), spawn the `knowledge-explorer` subagent instead. This skill is for quick inline lookups.
