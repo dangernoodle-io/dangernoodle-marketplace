@@ -1,6 +1,8 @@
 ---
 name: recall
 description: Query ouroboros for project context — searches KB entries, backlog items, and plans in one shot
+context: fork
+model: haiku
 ---
 
 # Recall Project Context
@@ -42,3 +44,4 @@ For targeted queries, highlight the most relevant matches. For broad queries, ke
 - Only fetch full KB entry content (`get` with `id`) if the user asks for details
 - Cross-reference: if a KB decision relates to an open item, mention the connection
 - If no results found, say so clearly rather than speculating
+- For deep investigation (code cross-reference, staleness checks, "why did we do X"), prefer spawning the `knowledge-explorer` subagent instead. This skill is optimized for quick inline lookups.
