@@ -11,47 +11,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Parse every JSON config
-        shell: bash
-        run: |
-          set -euo pipefail
-          fail=0
-          while IFS= read -r f; do
-            if ! jq -e type "$f" >/dev/null; then
-              echo "::error file=$f::not valid JSON"
-              fail=1
-            fi
-          done < <(find . -type d \( -name node_modules -o -name .git \) -prune -o -type f -name '*.json' -print)
-          exit $fail
+        run: .github/scripts/ci/validate-json.sh
       - name: Shape assertions
-        shell: bash
-        run: |
-          set -euo pipefail
-          jq -e '.name | type == "string" and (. | length > 0)' .claude-plugin/marketplace.json >/dev/null
-          jq -e '.plugins | type == "array" and (length > 0)' .claude-plugin/marketplace.json >/dev/null
-          for f in plugins/*/.claude-plugin/plugin.json; do
-            jq -e '.name | type == "string" and (. | length > 0)' "$f" >/dev/null || { echo "::error file=$f::missing/empty .name"; exit 1; }
-            jq -e '.version | type == "string" and (. | length > 0)' "$f" >/dev/null || { echo "::error file=$f::missing/empty .version"; exit 1; }
-          done
-          for f in plugins/*/hooks/hooks.json; do
-            [ -f "$f" ] || continue
-            jq -e '.hooks | type == "object"' "$f" >/dev/null || { echo "::error file=$f::missing .hooks object"; exit 1; }
-          done
+        run: .github/scripts/ci/assert-shapes.sh
 
   shellcheck:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Run shellcheck
-        shell: bash
-        run: |
-          set -euo pipefail
-          mapfile -t targets < <(find plugins -type f -name '*.sh')
-          if [ ${#targets[@]} -eq 0 ]; then
-            echo "no shell scripts found"
-            exit 0
-          fi
-          printf '%s\n' "${targets[@]}"
-          shellcheck -x -S warning "${targets[@]}"
+        run: .github/scripts/ci/shellcheck-all.sh
 
   discover-tests:
     runs-on: ubuntu-latest
@@ -60,15 +29,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - id: find
-        shell: bash
-        run: |
-          set -euo pipefail
-          plugins=$(find plugins -maxdepth 3 -type f -path '*/tests/run.sh' \
-            | awk -F/ '{print $2}' \
-            | sort -u \
-            | jq -R -s -c 'split("\n") | map(select(length > 0))')
-          echo "plugins=$plugins" >> "$GITHUB_OUTPUT"
-          echo "discovered: $plugins"
+        run: .github/scripts/ci/discover-tests.sh >> "$GITHUB_OUTPUT"
 
   plugin-tests:
     needs: discover-tests
@@ -91,12 +52,8 @@ jobs:
     needs: [validate-json, shellcheck, discover-tests, plugin-tests]
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - name: Check all jobs succeeded
-        shell: bash
-        run: |
-          results='${{ toJSON(needs) }}'
-          echo "$results" | jq .
-          if echo "$results" | jq -e 'to_entries | map(select(.value.result == "failure" or .value.result == "cancelled")) | length > 0' >/dev/null; then
-            echo "::error::one or more required jobs failed or were cancelled"
-            exit 1
-          fi
+        env:
+          NEEDS: ${{ toJSON(needs) }}
+        run: .github/scripts/ci/check-needs.sh
