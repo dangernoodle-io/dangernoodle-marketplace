@@ -15,9 +15,9 @@
       "homepage": "https://github.com/dangernoodle-io/serial-io-mcp"
     },
     {
-      "name": "ouroboros",
+      "name": "ouroboros-mcp",
       "description": "Project knowledge base and backlog management. Persist decisions, facts, and notes across conversations. Track work items, plans, and project configuration.",
-      "source": "./plugins/ouroboros",
+      "source": "./plugins/ouroboros-mcp",
       "homepage": "https://github.com/dangernoodle-io/ouroboros"
     }
   ]
