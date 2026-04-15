@@ -5,38 +5,25 @@ context: fork
 model: haiku
 ---
 
-# Triage Backlog
+1. **Project.** `git rev-parse --show-toplevel | xargs basename`. If not in a git repo, ask which project to triage.
 
-Review and manage backlog items for the current project.
+2. **Load state:**
+   - `project` (no args) — list all projects
+   - `item` with project filter + `status: "open"` — open items
+   - `plan` with project filter — active plans
 
-## Process
+3. **Summarize.** Show open items grouped by priority (P0 first) with counts per level. Show active plans separately. Priority scale: P0 (critical/blocking) through P6 (someday/maybe).
 
-### 1. Determine Project Name
-Run `git rev-parse --show-toplevel | xargs basename` to identify the project. If not in a git repo, ask the user which project to triage.
+4. **Suggest actions.** If args were supplied (e.g. `/triage reprioritize`), act on them. Otherwise suggest:
+   - Items that may be stale (old, no recent updates)
+   - Items that could be consolidated
+   - Priority adjustments based on current context
+   - Items that appear done — run `git log --oneline -20` and cross-reference commit subjects against open item titles; suggest closure for anything clearly landed
 
-### 2. Load Current State
-- Call `project` MCP tool with no args to list all projects
-- Call `item` MCP tool with `project` filter and `status: "open"` to get open items
-- Call `plan` MCP tool with `project` filter to get active plans
-
-### 3. Present Summary
-Display open items grouped by priority (P0 first), with a count per priority level. Show active plans separately.
-Priority scale: P0 (critical/blocking) through P6 (someday/maybe).
-
-### 4. Interactive Triage
-If the user provided args (e.g., `/triage reprioritize`), act on them. Otherwise, suggest actions:
-- Items that may be stale (created long ago, no recent updates)
-- Items that could be consolidated
-- Priority adjustments based on context
-- Items that appear done based on recent commits
-
-Before suggesting items that "appear done", run `git log --oneline -20` and cross-reference commit subjects against open item titles. Items whose titles reference something clearly landed should be suggested for closure.
-
-### 5. Apply Changes
-For each agreed change, call the `item` MCP tool with `id` + updated fields. Report what was changed.
+5. **Apply.** For each confirmed change, call `item` with `id` + updated fields. Report what changed.
 
 ## Guidelines
 
 - Always show current state before suggesting changes
-- Never close or reprioritize items without user confirmation
+- Never close or reprioritize without user confirmation
 - Group related items when suggesting consolidation
