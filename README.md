@@ -6,14 +6,15 @@ Claude Code plugin marketplace for [dangernoodle-io](https://github.com/dangerno
 
 | Plugin | Description |
 |--------|-------------|
-| [serial-io-mcp](https://github.com/dangernoodle-io/serial-io-mcp) | MCP server for serial port monitoring, control, and firmware flashing |
-| [ouroboros](https://github.com/dangernoodle-io/ouroboros) | Project knowledge base and backlog management. Persist decisions, facts, and notes across conversations. Track work items, plans, and project configuration. |
+| [serial-io-mcp](./plugins/serial-io-mcp) | MCP server for serial port monitoring, control, and firmware flashing. Upstream: [serial-io-mcp](https://github.com/dangernoodle-io/serial-io-mcp). |
+| [ouroboros-mcp](./plugins/ouroboros-mcp) | Project knowledge base and backlog management. Persist decisions, facts, and notes across conversations. Track work items, plans, and project configuration. Upstream: [ouroboros](https://github.com/dangernoodle-io/ouroboros). |
 
 ## Install
 
 ```
 /plugin marketplace add dangernoodle-io/dangernoodle-marketplace
 /plugin install serial-io-mcp@dangernoodle-marketplace
+/plugin install ouroboros-mcp@dangernoodle-marketplace
 ```
 
 The plugin downloads the pre-built binary from GitHub Releases on first use. No build tools required.

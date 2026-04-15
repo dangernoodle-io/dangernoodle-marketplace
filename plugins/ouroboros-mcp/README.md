@@ -1,11 +1,11 @@
-# ouroboros
+# ouroboros-mcp
 
 Project knowledge base and backlog management for Claude Code. Persist decisions, facts, and notes across conversations. Track work items, plans, and project configuration.
 
 ## Install
 
 ```bash
-/plugin install ouroboros@dangernoodle
+/plugin install ouroboros-mcp@dangernoodle-marketplace
 ```
 
 ## What it does
