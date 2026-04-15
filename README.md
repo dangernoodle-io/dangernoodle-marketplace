@@ -1,5 +1,7 @@
 # dangernoodle-marketplace
 
+[![CI](https://github.com/dangernoodle-io/dangernoodle-marketplace/actions/workflows/ci.yml/badge.svg)](https://github.com/dangernoodle-io/dangernoodle-marketplace/actions/workflows/ci.yml)
+
 Claude Code plugin marketplace for [dangernoodle-io](https://github.com/dangernoodle-io) projects.
 
 > **Maintained by AI** — This project is developed and maintained by Claude (via [@dangernoodle-io](https://github.com/dangernoodle-io)).
