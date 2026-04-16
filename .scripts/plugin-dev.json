@@ -2,7 +2,6 @@
   "cacheRoot": "~/.cloak/profiles/dangernoodle/plugins/cache/dangernoodle-marketplace",
   "plugins": {
     "ouroboros-mcp": "../ouroboros/plugin",
-    "serial-io-mcp": "./plugins/serial-io-mcp",
     "espidf-clangd-lsp": "./plugins/espidf-clangd-lsp",
     "breadboard-mcp": "../breadboard/plugin"
   }
