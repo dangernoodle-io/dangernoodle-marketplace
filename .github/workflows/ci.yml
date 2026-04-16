@@ -47,9 +47,18 @@ jobs:
       - name: Run ${{ matrix.plugin }} tests
         run: bash plugins/${{ matrix.plugin }}/tests/run.sh
 
+  scripts-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install bats
+        run: sudo apt-get update && sudo apt-get install -y bats
+      - name: Run .scripts bats tests
+        run: bats .scripts/*.bats
+
   ci-success:
     if: always()
-    needs: [validate-json, shellcheck, discover-tests, plugin-tests]
+    needs: [validate-json, shellcheck, discover-tests, plugin-tests, scripts-tests]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
