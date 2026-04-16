@@ -25,6 +25,17 @@
       "description": "clangd LSP preconfigured for ESP-IDF (ESP32 xtensa + riscv32) C/C++ development. Zero-config toolchain trust via --query-driver globs.",
       "source": "./plugins/espidf-clangd-lsp",
       "homepage": "https://github.com/dangernoodle-io/dangernoodle-marketplace"
+    },
+    {
+      "name": "espidf-tools-mcp",
+      "description": "MCP server for ESP-IDF developer tools — flash, erase, register ops, NVS, backtrace decode",
+      "source": {
+        "source": "git-subdir",
+        "url": "dangernoodle-io/espidf-tools",
+        "path": "plugin",
+        "ref": "v0.1.1"
+      },
+      "homepage": "https://github.com/dangernoodle-io/espidf-tools"
     }
   ]
 }
