@@ -31,7 +31,7 @@ EOF
   mkdir -p "$TEST_CACHE_ROOT/test-plugin/1.0.0"
 
   # Script path
-  export SCRIPT_PATH="/Users/jae/Projects/dangernoodle/dangernoodle-marketplace/.scripts/plugin-dev.sh"
+  export SCRIPT_PATH="$BATS_TEST_DIRNAME/plugin-dev.sh"
 }
 
 teardown() {
