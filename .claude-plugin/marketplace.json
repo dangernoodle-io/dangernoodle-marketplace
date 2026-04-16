@@ -24,6 +24,17 @@
       "description": "clangd LSP preconfigured for ESP-IDF (ESP32 xtensa + riscv32) C/C++ development. Zero-config toolchain trust via --query-driver globs.",
       "source": "./plugins/espidf-clangd-lsp",
       "homepage": "https://github.com/dangernoodle-io/dangernoodle-marketplace"
+    },
+    {
+      "name": "breadboard-mcp",
+      "description": "Embedded development MCP server — serial monitoring, ESP-IDF flashing, NVS management, and crash decode.",
+      "source": {
+        "source": "git-subdir",
+        "url": "dangernoodle-io/breadboard",
+        "path": "plugin",
+        "ref": "v0.1.0"
+      },
+      "homepage": "https://github.com/dangernoodle-io/breadboard"
     }
   ]
 }
