@@ -9,12 +9,6 @@
   },
   "plugins": [
     {
-      "name": "serial-io-mcp",
-      "description": "MCP server for serial port monitoring and control. List, open, read, write, and flash firmware across multiple simultaneous serial ports.",
-      "source": "./plugins/serial-io-mcp",
-      "homepage": "https://github.com/dangernoodle-io/serial-io-mcp"
-    },
-    {
       "name": "ouroboros-mcp",
       "description": "Project knowledge base and backlog management. Persist decisions, facts, and notes across conversations. Track work items, plans, and project configuration.",
       "source": {
