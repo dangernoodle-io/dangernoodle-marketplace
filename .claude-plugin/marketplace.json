@@ -17,7 +17,12 @@
     {
       "name": "ouroboros-mcp",
       "description": "Project knowledge base and backlog management. Persist decisions, facts, and notes across conversations. Track work items, plans, and project configuration.",
-      "source": "./plugins/ouroboros-mcp",
+      "source": {
+        "source": "git-subdir",
+        "url": "dangernoodle-io/ouroboros",
+        "path": "plugin",
+        "ref": "v0.2.0"
+      },
       "homepage": "https://github.com/dangernoodle-io/ouroboros"
     },
     {

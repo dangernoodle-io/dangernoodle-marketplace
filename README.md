@@ -11,7 +11,7 @@ Claude Code plugin marketplace for [dangernoodle-io](https://github.com/dangerno
 | Plugin | Description | Upstream |
 |--------|-------------|----------|
 | [serial-io-mcp](./plugins/serial-io-mcp) | MCP server for serial port monitoring, control, and firmware flashing. | [serial-io-mcp](https://github.com/dangernoodle-io/serial-io-mcp) |
-| [ouroboros-mcp](./plugins/ouroboros-mcp) | Project knowledge base and backlog management. Persist decisions, facts, and notes across conversations. Track work items, plans, and project configuration. | [ouroboros](https://github.com/dangernoodle-io/ouroboros) |
+| [ouroboros-mcp](https://github.com/dangernoodle-io/ouroboros/tree/main/plugin) | Project knowledge base and backlog management. Persist decisions, facts, and notes across conversations. Track work items, plans, and project configuration. | [ouroboros](https://github.com/dangernoodle-io/ouroboros) |
 | [espidf-clangd-lsp](./plugins/espidf-clangd-lsp) | clangd LSP preconfigured for ESP-IDF (ESP32 xtensa + riscv32) C/C++ development. | [clangd](https://clangd.llvm.org) |
 
 ## Install
