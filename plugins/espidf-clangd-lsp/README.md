@@ -43,6 +43,36 @@ A Stop hook checks whether sources or build config are newer than the generated 
 
 Force a refresh manually with the `/refresh-compile-db` skill (runs synchronously, skips cooldown/staleness checks).
 
+## Multi-variant PlatformIO projects
+
+For projects with multiple PlatformIO environments (e.g. `bitaxe-601`, `bitaxe-403`, `tdongle-s3`), the plugin automatically symlinks the active variant's `compile_commands.json` to the project root after each refresh. clangd auto-discovers the root-level file, so no `.clangd` configuration is needed to point at a specific variant.
+
+**Default behavior:** the most-recently-built variant is selected automatically. The Stop-hook background refresh tracks this on every build.
+
+**Switching variants explicitly:** use the `/set-active-board <env>` skill, or call the script directly:
+
+```bash
+bash <plugin-root>/scripts/compile-db-refresh.sh --variant tdongle-s3 --force
+```
+
+**`.clangd` simplification:** multi-variant projects no longer need a `CompilationDatabase:` line. The root symlink is enough:
+
+```yaml
+# .clangd — no CompilationDatabase needed for multi-variant PlatformIO
+CompileFlags:
+  Add: []
+```
+
+If you previously had `CompilationDatabase: .pio/build/<variant>` in `.clangd`, you can remove that line.
+
+**`.gitignore`:** add `compile_commands.json` to your project's `.gitignore` so the generated root symlink is not tracked:
+
+```
+compile_commands.json
+```
+
+Native ESP-IDF projects are unaffected — their `build/compile_commands.json` is already at a path clangd can walk to from the project root. The `--variant` flag is not supported for ESP-IDF projects.
+
 ## License
 
 MIT
