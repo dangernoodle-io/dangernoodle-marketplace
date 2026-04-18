@@ -8,9 +8,12 @@ source tests/lib.sh
 source tests/test-install.sh
 # shellcheck source=tests/test-compile-db-refresh.sh
 source tests/test-compile-db-refresh.sh
+# shellcheck source=tests/test-multi-variant-symlink.sh
+source tests/test-multi-variant-symlink.sh
 
 trap cleanup_all EXIT
 
 test_install
 test_compile_db_refresh
+test_multi_variant_symlink
 summary
