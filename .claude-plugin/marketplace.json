@@ -26,15 +26,15 @@
       "homepage": "https://github.com/dangernoodle-io/dangernoodle-marketplace"
     },
     {
-      "name": "breadboard-mcp",
+      "name": "pogopin-mcp",
       "description": "Embedded development MCP server — serial monitoring, ESP-IDF flashing, NVS management, and crash decode.",
       "source": {
         "source": "git-subdir",
-        "url": "dangernoodle-io/breadboard",
+        "url": "dangernoodle-io/pogopin",
         "path": "plugin",
         "ref": "v0.1.0"
       },
-      "homepage": "https://github.com/dangernoodle-io/breadboard"
+      "homepage": "https://github.com/dangernoodle-io/pogopin"
     }
   ]
 }
