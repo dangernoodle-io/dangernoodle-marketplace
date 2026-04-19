@@ -3,6 +3,6 @@
   "plugins": {
     "ouroboros-mcp": "../ouroboros/plugin",
     "espidf-clangd-lsp": "./plugins/espidf-clangd-lsp",
-    "breadboard-mcp": "../breadboard/plugin"
+    "pogopin-mcp": "../pogopin/plugin"
   }
 }
