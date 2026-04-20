@@ -32,7 +32,7 @@
         "source": "git-subdir",
         "url": "dangernoodle-io/pogopin",
         "path": "plugin",
-        "ref": "v0.1.0"
+        "ref": "v0.1.2"
       },
       "homepage": "https://github.com/dangernoodle-io/pogopin"
     }
