@@ -15,7 +15,7 @@
         "source": "git-subdir",
         "url": "dangernoodle-io/ouroboros",
         "path": "plugin",
-        "ref": "v0.9.2"
+        "ref": "v0.9.3"
       },
       "homepage": "https://github.com/dangernoodle-io/ouroboros"
     },
