@@ -9,7 +9,7 @@ jobs:
   validate-json:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Parse every JSON config
         run: .github/scripts/ci/validate-json.sh
       - name: Shape assertions
@@ -18,7 +18,7 @@ jobs:
   shellcheck:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Run shellcheck
         run: .github/scripts/ci/shellcheck-all.sh
 
@@ -27,7 +27,7 @@ jobs:
     outputs:
       plugins: ${{ steps.find.outputs.plugins }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - id: find
         run: .github/scripts/ci/discover-tests.sh >> "$GITHUB_OUTPUT"
 
@@ -45,7 +45,7 @@ jobs:
   scripts-tests:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Install bats
         run: sudo apt-get update && sudo apt-get install -y bats
       - name: Run .scripts bats tests
@@ -56,7 +56,7 @@ jobs:
     needs: [validate-json, shellcheck, discover-tests, plugin-tests, scripts-tests]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Check all jobs succeeded
         env:
           NEEDS: ${{ toJSON(needs) }}
