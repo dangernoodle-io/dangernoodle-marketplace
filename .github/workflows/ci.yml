@@ -56,8 +56,7 @@ jobs:
     needs: [validate-json, shellcheck, discover-tests, plugin-tests, scripts-tests]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
-      - name: Check all jobs succeeded
-        env:
-          NEEDS: ${{ toJSON(needs) }}
-        run: .github/scripts/ci/check-needs.sh
+      - uses: dangernoodle-io/.github/.github/actions/ci-result-gate@main
+        with:
+          required: validate-json=${{ needs.validate-json.result }} shellcheck=${{ needs.shellcheck.result }} discover-tests=${{ needs.discover-tests.result }} scripts-tests=${{ needs.scripts-tests.result }}
+          optional: plugin-tests=${{ needs.plugin-tests.result }}
