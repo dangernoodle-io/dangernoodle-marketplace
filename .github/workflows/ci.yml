@@ -34,18 +34,13 @@ jobs:
   plugin-tests:
     needs: discover-tests
     if: needs.discover-tests.outputs.plugins != '[]'
-    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         plugin: ${{ fromJSON(needs.discover-tests.outputs.plugins) }}
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-      - name: Run ${{ matrix.plugin }} tests
-        run: bash plugins/${{ matrix.plugin }}/tests/run.sh
+    uses: dangernoodle-io/.github/.github/workflows/plugin-test.yml@main
+    with:
+      plugin-path: plugins/${{ matrix.plugin }}
 
   scripts-tests:
     runs-on: ubuntu-latest
